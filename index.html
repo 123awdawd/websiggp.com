@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>Gonçalo Pereira - Sistemas de Informação Geográfico</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>Gonçalo Pereira</h1>
+    <p>Mestrado em Sistemas de Informação Geográfica e Ordenamento do Território</p>
+    <div class="header-actions">
+      <button id="btn-map" class="btn-primary">Mapa</button>
+      <button id="btn-about" class="btn-primary">Sobre Mim</button>
+      <button id="btn-cv" class="btn-primary">Currículo</button>
+      <button id="btn-hobbies" class="btn-primary">Hobbies</button>
+      <button id="btn-docs" class="btn-primary">Documentos</button>
+    </div>
+  </header>
+
+  <div class="divider"></div>
+
+  <div class="container">   
+    <aside class="sidebar">
+      <h2>Pedonalização no Centro de Gondomar</h2>
+      
+      <p>
+        Este projeto foi realizado no âmbito de um estágio na Câmara de Gondomar com objetivo de avaliar a possibilidade de pedonalização no centro de Gondomar.
+      </p>
+
+      <div class="info-box">
+        <h3>📍 Localização</h3>
+        <p>Gondomar, Portugal</p>
+      </div>
+
+
+      <div class="info-box">
+        <h3>📊 Dados</h3>
+        <p>Os dados apresentados foram fornecidos pela Câmara Municipal de Gondomar.</p>
+      </div>
+
+      <div class="info-box">
+        <h3>🗺️ Como Usar</h3>
+        <p>Utilize a legenda do mapa para ativar ou desativar as diferentes camadas de informação.</p>
+      </div>
+
+      <p class="sidebar-note">
+        Desenvolvido com Leaflet.js e dados geoespaciais em formato GeoJSON.
+      </p>
+    </aside>
+
+    <div class="map-container">
+      <div id="map"></div>
+      <div id="map-feature-info" class="map-info-box">
+        <button id="map-feature-info-close" class="close-btn" title="Fechar">×</button>
+        <div id="map-feature-info-content">Clique num ponto ou polígono no mapa para ver detalhes.</div>
+      </div>
+      <div id="panel-overlay" class="panel-overlay">
+        <div class="panel-card" role="dialog" aria-modal="true">
+          <button id="panel-close" class="panel-close" title="Fechar">×</button>
+          <h3 id="panel-title"></h3>
+          <div id="panel-content"></div>
+        </div>
+      </div>
+      <div id="docs">
+        <div class="row-center">
+          <strong>Documentos disponíveis</strong>
+        </div>
+        <div id="pdf-list">A carregar lista de PDFs...</div>
+        <div id="pdf-viewer" class="pdf-viewer">
+        </div>
+      </div>
+
+      <div id="about-page" class="about-page">
+        <div class="row-center">
+          <strong>Sobre Mim</strong>
+        </div>
+        <div id="about-content">
+          <h3>Gonçalo Pereira</h3>
+          
+          <p>Sou licenciado em Geografia e atualmente estudante na Faculdade de Letras da Universidade do Porto (FLUP). Ao longo do meu percurso académico, desenvolvi competências sólidas em planeamento territorial e análise de dados, combinando formação teórica com aprendizagem prática baseada em projetos.</p>
+
+          <p>O meu interesse centra-se na compreensão e organização do território, recorrendo a metodologias quantitativas e qualitativas, bem como a ferramentas associadas aos Sistemas de Informação Geográfica (SIG). Este percurso tem-me permitido abordar problemas territoriais de forma estruturada e crítica, procurando soluções informadas e aplicáveis a contextos reais.</p>
+
+          <p>Neste website apresento o meu percurso académico e os principais projetos que desenvolvi, com especial enfoque no Mestrado em SIG e Ordenamento do Território, evidenciando competências que podem ser relevantes para instituições e empresas na área do planeamento e gestão do território.</p>
+          
+          <h4 class="about-section-header">Formação Académica</h4>
+          <div class="about-columns">
+            <div class="about-col-left">
+              <div class="mb-20">
+                <h5 class="about-subtitle">Licenciatura em Geografia</h5>
+                <p class="muted"><strong>Faculdade de Letras - Universidade do Porto (FLUP)</strong></p>
+                <p class="small-muted">10/2020 – 07/2023</p>
+              </div>
+              <div class="mb-20">
+                <h5 class="about-subtitle">Mestrado em Sistemas de Informação Geográfica e Ordenamento de Território</h5>
+                <p class="muted"><strong>Faculdade de Letras - Universidade do Porto (FLUP)</strong></p>
+                <p class="small-muted">10/2023 – Presente</p>
+              </div>
+            </div>
+            <div class="about-col-right">
+              <img src="imagens/flup.jpg" alt="FLUP" class="rounded-photo">
+            </div>
+          </div>
+
+          <h4 class="about-section-header">Competências Técnicas</h4>
+          <div class="skills-grid">
+            <div class="text-center">
+              <img src="icones/Python.png" alt="Python" class="skill-icon">
+              <p class="skill-label">Python</p>
+            </div>
+            <div class="text-center">
+              <img src="icones/JavaScript.png" alt="JavaScript" class="skill-icon">
+              <p class="skill-label">JavaScript</p>
+            </div>
+            <div class="text-center">
+              <img src="icones/HTML5.png" alt="HTML5" class="skill-icon">
+              <p class="skill-label">HTML5</p>
+            </div>
+            <div class="text-center">
+              <img src="icones/ArcGIS.png" alt="ArcGIS" class="skill-icon">
+              <p class="skill-label">ArcGIS</p>
+            </div>
+            <div class="text-center">
+              <img src="icones/qgis.png" alt="QGIS" class="skill-icon">
+              <p class="skill-label">QGIS</p>
+            </div>
+          </div>
+
+          <h4 class="about-section-header">Línguas</h4>
+          <div class="mt-20">
+            <p class="muted">• <strong>Português</strong> — Nativo</p>
+            <p class="muted">• <strong>Inglês</strong> — Avançado</p>
+          </div>
+
+          <h4 class="about-section-header">Conferências e Seminários</h4>
+          <div class="mt-20 conf-list">
+            <div class="conf-item">
+              <div class="conf-title">XVI Jornadas Internacionais sobre Grandes Problemáticas do Espaço Europeu</div>
+              <div class="conf-meta">27/05/2022 – 29/05/2022 &nbsp;•&nbsp; Faculdade de Letras - Universidade do Porto</div>
+              <p class="conf-desc">Participação com a apresentação do poster intitulado "AS PROBLEMÁTICAS DO ENSINO NO COLÉGIO SALESIANOS DO PORTO".</p>
+            </div>
+
+            <div class="conf-item">
+              <div class="conf-title">Ciclo de Conferências sobre Dinâmicas no Espaço Rural</div>
+              <div class="conf-meta">17/10/2022 &nbsp;•&nbsp; Faculdade de Letras - Universidade do Porto</div>
+              <p class="conf-desc">Participação na conferência "Resiliência e Serviços de Ecossistema: Solo, Água, Vegetação", proferida pela Professora Doutora Maria José Roxo da Universidade Nova de Lisboa.</p>
+            </div>
+
+            <div class="conf-item">
+              <div class="conf-title">II Conferência sobre Dinâmicas no Espaço Rural: Agricultura e Floresta</div>
+              <div class="conf-meta">07/11/2022 &nbsp;•&nbsp; Faculdade de Letras - Universidade do Porto</div>
+              <p class="conf-desc">Participação na conferência proferida pelo Professor Doutor Artur Cristóvão da Universidade de Trás-os-Montes e Alto Douro e pela Engenheira Rosário Alves da FORESTIS - Associação Florestal de Portugal.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="cv-page" class="about-page">
+        <div class="row-center">
+          <strong>Currículo</strong>
+        </div>
+        <div id="cv-content">
+          <div class="resume-container">
+          <div class="left-column">
+            <img src="cv/fotografia.jpg" alt="Fotografia">
+            <h1>Gonçalo Pereira</h1>
+
+            <div>
+              <h2>Morada:</h2>
+              <p>Valbom, Gondomar 4420-545 Portugal</p>
+            </div>
+
+            <div>
+              <h2>Contacto:</h2>
+              <p>926200098</p>
+              <p><a href="http://www.linkedin.com/in/gonçalo-pereira-660386374" target="_blank">LinkedIn</a></p>
+            </div>
+
+            <div>
+              <h2>Email:</h2>
+              <p><a href="mailto:goncalofpereira@hotmail.com">goncalofpereira@hotmail.com</a></p>
+            </div>
+
+            <h2 class="section-title">Competências</h2>
+            <ul class="Competencias-list">
+              <li>Sistemas de Informação Geográfica (ArcGIS e QGIS)</li>
+              <li>Programação em Python e HTML</li>
+              <li>Capacidade de comunicação e colaboração</li>
+            </ul>
+
+            <h2 class="section-title">Hobbies</h2>
+            <ul class="hobbies-list">
+              <li>Musculação</li>
+              <li>Leitura</li>
+            </ul>
+
+            <h2 class="section-title">Línguas</h2>
+            <ul class="linguas-list">
+              <li>Português <span>Nativo</span></li>
+              <li>Inglês <span>Avançado</span></li>
+            </ul>
+          </div>
+
+          <div class="right-column">
+            <section>
+              <h2 class="section-title">Educação</h2>
+
+              <p><strong>[ 2017 – 2020 ]</strong><br>
+                12º ano:<br>
+                <a href="https://www.aev-valbom.org" target="_blank">Escola Secundária de Valbom</a><br>
+                Endereço: R. José Marques Pinto, 4420-478 Valbom
+              </p>
+
+              <p><strong>[ 2020 – 2023 ]</strong><br>
+                Licenciatura em Geografia<br>
+                <a href="https://sigarra.up.pt/flup/pt/cur_geral.cur_view?pv_curso_id=341&pv_ano_lectivo=2025" target="_blank">Faculdade de Letras da Universidade do Porto</a><br>
+                Endereço: Via Panorâmica Edgar Cardoso, 4150-564 Porto
+              </p>
+
+              <p><strong>[ 2023 – Atual ]</strong><br>
+                Mestrado em Sistemas de Informação Geográfica<br>
+                <a href="https://sigarra.up.pt/flup/pt/CUR_GERAL.CUR_VIEW?pv_curso_id=461&pv_ano_lectivo=2025" target="_blank">Faculdade de Letras da Universidade do Porto</a><br>
+                Endereço: Via Panorâmica Edgar Cardoso, 4150-564 Porto
+              </p>
+            </section>
+
+            <section>
+              <h2 class="section-title">Experiência Profissional</h2>
+
+              <p><strong>[ 01/11/2024 – 20/12/2024 ]</strong><br>
+                Estágio na Câmara Municipal de Gondomar<br>
+                <a href="https://www.cm-gondomar.pt/" target="_blank">Câmara Municipal de Gondomar</a><br>
+                <br>
+                Este estágio ocorreu durante o segundo ano do meu Mestrado, com a duração de dois meses. O projeto centrou-se na avaliação da possibilidade de uma pedonalização no centro de Gondomar.<br><br>
+                Durante o estágio, tive a oportunidade de:
+              </p>
+
+              <ul class="Experiencia-Prfissional-list">
+                <li>Gerir e analisar dados espaciais e estatísticos</li>
+                <li>Aplicar ferramentas de SIG para análise territorial</li>
+                <li>Trabalhar com dados de GPS, desde a recolha até ao processamento</li>
+                <li>Desenvolver produtos cartográficos e mapeamento de dados espaciais</li>
+              </ul>
+
+            </section>
+
+            <section>
+              <h2 class="section-title">Conferências e Seminários</h2>
+
+              <p><strong>[ 27/05/2022 – 29/05/2022 ]</strong><br>
+                XVI Jornadas Internacionais sobre Grandes Problemáticas do Espaço Europeu<br>
+                Faculdade de Letras da Universidade do Porto<br>
+                Participação com a apresentação do poster intitulado "AS PROBLEMÁTICAS DO ENSINO NO COLÉGIO SALESIANOS DO PORTO".<br>
+                <a href="https://sigarra.up.pt/flup/pt/noticias_geral.ver_noticia?p_nr=136503" target="_blank">Ligação</a>
+              </p>
+
+              <p><strong>[ 17/10/2022 ]</strong><br>
+                Ciclo de Conferências sobre Dinâmicas no Espaço Rural<br>
+                Faculdade de Letras da Universidade do Porto<br>
+                Participação na conferência "Resiliência e Serviços de Ecossistema: Solo, Água, Vegetação", proferida pela Professora Doutora Maria José Roxo da Universidade Nova de Lisboa.
+              </p>
+
+              <p><strong>[ 07/11/2022 ]</strong><br>
+                II Conferência sobre Dinâmicas no Espaço Rural: Agricultura e Floresta<br>
+                Faculdade de Letras da Universidade do Porto<br>
+                Participação na conferência proferida pelo Professor Doutor Artur Cristovão da Universidade de Trás-os-Montes e Alto Douro e pela Engenheira Rosário Alves da FORESTIS - Associação Florestal de Portugal.<br>
+                <a href="https://sigarra.up.pt/flup/pt/noticias_geral.ver_noticia?p_nr=148545" target="_blank">Ligação</a>
+              </p>
+            </section>
+
+            <p>
+              Clique para ver o meu <a href="https://arcg.is/48f4D" target="_blank">Storymap</a>.
+            </p>
+          </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="hobbies-page" class="hobbies-page">
+        <div class="row-center">
+            <strong>Hobbies</strong>
+        </div>
+        <div id="hobbies-content" class="hobbies-columns">
+          <div class="hobby-cards">
+            <div class="hobby-card">
+              <div class="hobby-icon">🏋️</div>
+              <div class="hobby-body">
+                <div class="hobby-title">Ginásio</div>
+                <p class="hobby-desc">Prática regular e consistente há mais de 4 anos, com experiência em musculação, powerlifting e calistenia. Esta atividade contribuiu para o desenvolvimento de disciplina, resiliência, capacidade de estabelecer e cumprir objetivos, bem como uma boa gestão do tempo e do esforço.</p>
+              </div>
+            </div>
+
+            <div class="hobby-card">
+              <div class="hobby-icon">📚</div>
+              <div class="hobby-body">
+                <div class="hobby-title">Leitura</div>
+                <p class="hobby-desc">Interesse por histórias com maior complexidade temática e narrativa, favorecendo a concentração, a capacidade de interpretação e o contacto com diferentes perspetivas.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="hobby-hero">
+            <img src="imagens/gym.jpeg" alt="Ginásio">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Gonçalo Pereira | Mestrado em SIG e Ordenamento do Território | <a href="#" id="contact-link">Contacto</a></p>
+  </footer>
+
+  <div id="contact-modal" class="contact-modal">
+    <div class="contact-box">
+      <button id="contact-close" class="contact-close">×</button>
+      <h2>Contacto</h2>
+      <form id="contact-form">
+        <div class="form-group">
+          <label for="sender-email">Seu Email:</label>
+          <input type="email" id="sender-email" name="sender-email" required placeholder="seu.email@exemplo.com">
+        </div>
+        <div class="form-group">
+          <label for="message">Mensagem:</label>
+          <textarea id="message" name="message" required placeholder="Escreva sua mensagem aqui..." rows="5"></textarea>
+        </div>
+        <button type="submit" class="btn-submit">Enviar</button>
+      </form>
+  <div id="contact-message" class="contact-message"></div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+  <script>
+    var map = L.map('map', { center: [41.138251, -8.532450], zoom: 13 });
+    var selectedLayer = null;
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    function onEachFeature(feature, layer) {
+      if (feature && feature.properties) {
+        var props = feature.properties;
+        layer.on('click', function(e){
+          if (window.L && L.DomEvent && typeof L.DomEvent.stopPropagation === 'function') {
+            L.DomEvent.stopPropagation(e);
+          }
+          showFeatureInfo(props, feature, layer);
+        });
+      }
+    }
+
+    function pointToLayer(feature, latlng) {
+      return L.circleMarker(latlng, {
+        radius: 6,
+        fillColor: '#3388ff',
+        color: '#fff',
+        weight: 1,
+        opacity: 1,
+        fillOpacity: 0.9
+      });
+    }
+
+    var globalColorMap = {
+      'ruapedonalizada.geojson': '#8B0000',
+      'zona30.json': '#0066FF',
+      'zonacoexistencia.json': '#FFCC00',
+      'universidade senior.geojson': '#FF8C00',
+      'escolasecundaria.json': '#90EE90',
+      'escolaprimaria.json': '#4169E1',
+      'escolabasica.json': '#FFD700',
+      'ParagensStcp.geojson': '#32CD32',
+      'LinhasStcp.geojson': '#32CD32'
+    };
+
+    var tagColorMap = {};
+    
+    var availableColors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8', '#F7DC6F', '#52B788', '#457B9D', '#A8DADC', '#F1FAEE', '#FF8C94', '#A0E7E5', '#B4A7D6', '#FFB4B4', '#73C6B6'];
+    var colorIndex = 0;
+
+    function pointToLayerWithColor(feature, latlng, customColor) {
+      var fillColor = customColor;
+      
+      if (feature.properties && feature.properties.tag && !customColor) {
+        var tag = feature.properties.tag;
+        
+        if (!tagColorMap[tag]) {
+          tagColorMap[tag] = availableColors[colorIndex % availableColors.length];
+          colorIndex++;
+        }
+        fillColor = tagColorMap[tag];
+      }
+      
+      return L.circleMarker(latlng, {
+        radius: 6,
+        fillColor: fillColor || '#3388ff',
+        color: '#fff',
+        weight: 1,
+        opacity: 1,
+        fillOpacity: 0.9
+      });
+    }
+
+    function makeOnEachFeature(sourceName) {
+      return function(feature, layer) {
+        try {
+          if (feature && feature.properties) feature.properties._sourceFile = sourceName;
+        } catch (e) {}
+        onEachFeature(feature, layer);
+      };
+    }
+
+    var geojsonFiles = [
+      'ParagensStcp.geojson',
+      'ParagensUnir.geojson',
+      'LinhasStcp.geojson',
+      'LinhasUnir.geojson',
+      'areaserviçoidosos.json',
+      'areaserviçojovens.json',
+      'escolabasica.json',
+      'escolaprimaria.json',
+      'escolasecundaria.json',
+      'pontosidosos.json',
+      'pontosjovens.json',
+      'ruapedonalizada.geojson',
+      'universidade senior.geojson',
+      'zona30.json',
+      'zonacoexistencia.json'
+    ];
+
+    var displayNames = {
+      'ParagensStcp.geojson': 'Paragens STCP',
+      'ParagensUnir.geojson': 'Paragens Unir',
+      'LinhasStcp.geojson': 'Linhas STCP',
+      'LinhasUnir.geojson': 'Linhas Unir',
+      'areaserviçoidosos.json': 'Área Serviço Idosos',
+      'areaserviçojovens.json': 'Área Serviço Jovens',
+      'escolabasica.json': 'Escola Básica',
+      'escolaprimaria.json': 'Escola Primária',
+      'escolasecundaria.json': 'Escola Secundária',
+      'pontosidosos.json': 'Pontos Idosos',
+      'pontosjovens.json': 'Pontos Jovens',
+      'ruapedonalizada.geojson': 'Rua Pedonalização',
+      'universidade senior.geojson': 'Universidade Sénior',
+      'zona30.json': 'Zona 30',
+      'zonacoexistencia.json': 'Zona Coexistência'
+    };
+
+    function fileTypeFromName(name) {
+      var lower = name.toLowerCase();
+      if (lower.indexOf('linhas') !== -1) return 'line';
+      if (lower.indexOf('paragen') !== -1 || lower.indexOf('paragens') !== -1 || lower.indexOf('pontos') !== -1) return 'point';
+      if (lower.indexOf('rua') !== -1 || lower.indexOf('zona') !== -1 || lower.indexOf('area') !== -1 || lower.indexOf('escola') !== -1 || lower.indexOf('universidade') !== -1) return 'polygon';
+      return 'auto';
+    }
+
+    var overlays = {};
+    var addedLayers = [];
+    var defaultVisible = ['zona30.json', 'zonacoexistencia.json', 'ruapedonalizada.geojson'];
+    var groupedNames = ['zona30.json', 'zonacoexistencia.json', 'ruapedonalizada.geojson', 'ParagensStcp.geojson', 'ParagensUnir.geojson', 'LinhasStcp.geojson', 'LinhasUnir.geojson', 'escolabasica.json', 'escolaprimaria.json', 'escolasecundaria.json', 'universidade senior.geojson', 'areaserviçoidosos.json', 'areaserviçojovens.json', 'pontosidosos.json', 'pontosjovens.json'];
+    var groupMembers = {};
+
+    Promise.all(geojsonFiles.map(function(fname){
+      return fetch('Geojson/' + fname).then(function(r){ if(!r.ok) throw new Error(fname+': '+r.statusText); return r.json().then(function(json){ return { name: fname, data: json }; }); }).catch(function(err){ console.error('Erro ao carregar ' + fname + ':', err); throw err; });
+    }))
+    .then(function(results){
+      results.forEach(function(item){
+        var name = item.name;
+        var data = item.data;
+        var cleanName = name.replace(/\.[^/.]+$/, '').replace(/_/g, ' ');
+        var type = fileTypeFromName(name);
+        var display = displayNames[name] || cleanName;
+
+        var layer;
+        var colorMap = {
+          'ruapedonalizada.geojson': '#8B0000',
+          'zona30.json': '#0066FF',
+          'zonacoexistencia.json': '#FFCC00',
+          'universidade senior.geojson': '#FF8C00',
+          'escolasecundaria.json': '#90EE90',
+          'escolaprimaria.json': '#4169E1',
+          'escolabasica.json': '#FFD700',
+          'ParagensStcp.geojson': '#32CD32',
+          'LinhasStcp.geojson': '#32CD32'
+        };
+        var customColor = colorMap[name];
+
+        function getStyleWithProps(feature) {
+          var color = customColor;
+          if (name.indexOf('area') !== -1) {
+            if (feature.properties && feature.properties.ToBreak) {
+              if (feature.properties.ToBreak <= 5) color = '#FFD700';
+              else if (feature.properties.ToBreak <= 10) color = '#FF8C00';
+              else color = '#FF0000';
+            }
+          }
+          return { color: color, weight: 2, fillOpacity: 0.3 };
+        }
+
+        if (type === 'line') {
+          layer = L.geoJSON(data, { style: function(){ return { color: customColor || '#3388ff', weight: 4, opacity: 0.8 }; } });
+        } else if (type === 'point') {
+          layer = L.geoJSON(data, { pointToLayer: function(feature, latlng){ return pointToLayerWithColor(feature, latlng, customColor); }, onEachFeature: makeOnEachFeature(name) });
+        } else if (type === 'polygon') {
+          layer = L.geoJSON(data, { style: getStyleWithProps, onEachFeature: makeOnEachFeature(name) });
+        } else {
+          layer = L.geoJSON(data, { pointToLayer: pointToLayer, onEachFeature: makeOnEachFeature(name) });
+        }
+
+        // marcar a origem diretamente no objeto layer para deteção mais fiável
+        try { layer._sourceFile = name; } catch (e) {}
+
+        if (groupedNames.indexOf(name) !== -1) {
+          groupMembers[name] = { layer: layer, display: display };
+        } else {
+          overlays[display] = layer;
+          if (defaultVisible.indexOf(name) !== -1) {
+            layer.addTo(map);
+            addedLayers.push(layer);
+          }
+        }
+      });
+
+      var groups = {
+        'Proposta de Pedonalização': ['zona30.json', 'zonacoexistencia.json', 'ruapedonalizada.geojson'],
+        'Transporte': ['ParagensStcp.geojson', 'ParagensUnir.geojson', 'LinhasStcp.geojson', 'LinhasUnir.geojson'],
+        'Educação': ['escolabasica.json', 'escolaprimaria.json', 'escolasecundaria.json', 'universidade senior.geojson'],
+        'Áreas de Serviço': ['areaserviçoidosos.json', 'areaserviçojovens.json', 'pontosidosos.json', 'pontosjovens.json']
+      };
+      
+      for (var groupName in groups) {
+        groups[groupName].forEach(function(fileName) {
+          if (groupMembers[fileName]) {
+            var member = groupMembers[fileName];
+            overlays[groupName + '||' + member.display] = member.layer;
+            if (defaultVisible.indexOf(fileName) !== -1) {
+              member.layer.addTo(map);
+              addedLayers.push(member.layer);
+            }
+          }
+        });
+      }
+
+      L.control.layers(null, overlays, { collapsed: false }).addTo(map);
+
+      function createExpandableGroups() {
+        var layersControl = document.querySelector('.leaflet-control-layers');
+        if (!layersControl) return;
+        
+        var labels = layersControl.querySelectorAll('label');
+        
+        let groupIndex = 0;
+        for (let groupName in groups) {
+          let groupLabels = [];
+
+          labels.forEach(function(label) {
+            const span = label.querySelector('span');
+            if (span && span.textContent.includes(groupName + '||')) {
+              groupLabels.push(label);
+            }
+          });
+
+          if (groupLabels.length === 0) continue;
+
+          let firstGroupLabel = groupLabels[0];
+
+          const header = document.createElement('div');
+          header.className = 'group-header';
+
+          const toggleSpan = document.createElement('span');
+          toggleSpan.className = 'group-toggle';
+          toggleSpan.textContent = '▼';
+
+          header.appendChild(toggleSpan);
+
+          const titleSpan = document.createElement('strong');
+          titleSpan.textContent = groupName;
+          header.appendChild(titleSpan);
+
+          const offCheckbox = document.createElement('input');
+          offCheckbox.type = 'checkbox';
+          offCheckbox.title = 'Ativar/desativar todas as camadas deste grupo';
+          offCheckbox.className = 'group-checkbox';
+
+          offCheckbox.checked = groupLabels.some(function(label) {
+            const input = label.querySelector('input[type="checkbox"], input[type="radio"]');
+            return input && input.checked;
+          });
+
+          offCheckbox.addEventListener('click', function(e) { e.stopPropagation(); });
+
+          offCheckbox.addEventListener('change', function(e) {
+            e.stopPropagation();
+            groupLabels.forEach(function(label) {
+              const input = label.querySelector('input[type="checkbox"], input[type="radio"]');
+              if (!input) return;
+              if (!!input.checked !== !!offCheckbox.checked) {
+                input.click();
+              }
+            });
+          });
+
+          header.appendChild(offCheckbox);
+
+          firstGroupLabel.parentNode.insertBefore(header, firstGroupLabel);
+
+          const itemsContainer = document.createElement('div');
+          itemsContainer.className = 'group-items';
+          itemsContainer.id = 'group-' + groupName.replace(/\s+/g, '-');
+
+          firstGroupLabel.parentNode.insertBefore(itemsContainer, firstGroupLabel);
+
+          groupLabels.forEach(function(label) {
+            const span = label.querySelector('span');
+            if (span) {
+              span.textContent = span.textContent.replace(groupName + '||', '');
+              // adicionar pequeno swatch de cor para algumas entradas específicas
+              try {
+                var text = span.textContent.trim();
+                if (!label.querySelector('.legend-swatch')) {
+                  var sw = document.createElement('span');
+                  sw.className = 'legend-swatch';
+                  // definir cores por texto (Zona 30: azul, Zona Coexistência: amarelo, Rua Pedonalização: vermelho escuro)
+                  if (text === 'Zona 30') sw.style.backgroundColor = '#0066FF';
+                  else if (text.indexOf('Coexist') !== -1) sw.style.backgroundColor = '#FFCC00';
+                  else if (text.indexOf('Pedonal') !== -1 || text.indexOf('Pedonalização') !== -1) sw.style.backgroundColor = '#8B0000';
+                  if (sw.style.backgroundColor) label.insertBefore(sw, span);
+                }
+              } catch (e) {}
+            }
+            itemsContainer.appendChild(label);
+          });
+
+          
+          if (groupIndex !== 0) {
+            itemsContainer.classList.add('collapsed');
+            toggleSpan.textContent = '▶';
+          }
+
+          header.addEventListener('click', function(e) {
+            e.stopPropagation();
+            itemsContainer.classList.toggle('collapsed');
+            toggleSpan.textContent = itemsContainer.classList.contains('collapsed') ? '▶' : '▼';
+          });
+
+          groupIndex++;
+        }
+      }
+
+      setTimeout(createExpandableGroups, 100);
+      // after creating groups, ensure legend swatches are present (run a second pass)
+      function addLegendSwatches() {
+        try {
+          var layersControl = document.querySelector('.leaflet-control-layers');
+          if (!layersControl) return;
+          var labels = layersControl.querySelectorAll('label');
+          labels.forEach(function(label){
+            var span = label.querySelector('span');
+            if (!span) return;
+            var text = span.textContent.trim();
+            var key = text.toLowerCase();
+            if (label.querySelector('.legend-swatch')) return;
+            var color = '';
+            if (key === 'zona 30' || key.indexOf('zona 30') !== -1) color = '#0066FF';
+            else if (key.indexOf('coexist') !== -1) color = '#FFCC00';
+            else if (key.indexOf('pedonal') !== -1) color = '#8B0000';
+            if (color) {
+              var sw = document.createElement('span');
+              sw.className = 'legend-swatch';
+              sw.style.backgroundColor = color;
+              label.insertBefore(sw, span);
+            }
+          });
+        } catch (e) { console.warn('addLegendSwatches error', e); }
+      }
+      setTimeout(addLegendSwatches, 180);
+
+      (function attachLayerToggleZoom(){
+        var displayToLayer = {};
+        for (var k in overlays) {
+          if (!overlays.hasOwnProperty(k)) continue;
+          var label = k;
+          if (label.indexOf('||') !== -1) label = label.split('||')[1];
+          label = label.trim();
+          displayToLayer[label] = overlays[k];
+        }
+
+        function tryAttach(){
+          var layersControl = document.querySelector('.leaflet-control-layers');
+          if (!layersControl) return setTimeout(tryAttach, 100);
+          var labels = layersControl.querySelectorAll('label');
+          labels.forEach(function(label){
+            var span = label.querySelector('span');
+            var input = label.querySelector('input[type="checkbox"], input[type="radio"]');
+            if (!span || !input) return;
+            var text = span.textContent.trim();
+            var layer = displayToLayer[text];
+            if (!layer) return;
+
+            if (input._hasZoomListener) return;
+            input._hasZoomListener = true;
+
+            input.addEventListener('change', function(){
+              try {
+                if (!input.checked) return; 
+                if (typeof layer.getBounds === 'function') {
+                  var bounds = layer.getBounds();
+                  if (bounds && typeof bounds.isValid === 'function' && bounds.isValid()) {
+                    var ne = bounds.getNorthEast();
+                    var sw = bounds.getSouthWest();
+                    if (ne && sw && ne.lat === sw.lat && ne.lng === sw.lng) {
+                      map.setView(bounds.getCenter(), Math.max(map.getZoom(), 16));
+                    } else {
+                      map.fitBounds(bounds, { maxZoom: 17 });
+                    }
+                  }
+                }
+              } catch (e) {
+                console.warn('Erro ao tentar ajustar zoom para camada:', e);
+              }
+            });
+          });
+        }
+
+        setTimeout(tryAttach, 200);
+      })();
+
+      try {
+        var group = L.featureGroup(addedLayers);
+        map.fitBounds(group.getBounds(), { maxZoom: 17 });
+      } catch (e) {
+        console.warn('Não foi possível ajustar as bounds:', e);
+      }
+    })
+    .catch(function(err){
+      console.error('Erro ao carregar ficheiros GeoJSON:', err);
+      alert('Erro a carregar ficheiros GeoJSON.\n\nCertifique-se de que:\n1. A pasta "Geojson" existe no mesmo diretório que index.html\n2. Os ficheiros GeoJSON estão dentro da pasta\n3. Está a executar num servidor (python -m http.server ou similar)\n\nErro: ' + err.message);
+    });
+
+    function showDocsView() { showPage('docs'); }
+
+    function showPage(pageId) {
+      document.getElementById('map').style.display = 'none';
+      var sidebar = document.querySelector('.sidebar'); if (sidebar) sidebar.style.display = 'none';
+      ['docs','about-page','cv-page','hobbies-page'].forEach(function(id){ var el = document.getElementById(id); if(el) el.style.display = 'none'; });
+      var el = document.getElementById(pageId);
+      if (!el) return;
+      el.style.display = 'block';
+      if (pageId === 'docs') listPdfsInFolder();
+    }
+
+    function showMapView() {
+      ['docs','about-page','cv-page','hobbies-page'].forEach(function(id){ var el = document.getElementById(id); if(el) el.style.display = 'none'; });
+      document.getElementById('map').style.display = 'block';
+      var sidebar = document.querySelector('.sidebar'); if (sidebar) sidebar.style.display = 'block';
+      var pdfv = document.getElementById('pdf-viewer'); if (pdfv) pdfv.style.display = 'none';
+      setTimeout(function(){ map.invalidateSize(); }, 200);
+    }
+
+    document.getElementById('btn-docs').addEventListener('click', function(){ showPage('docs'); });
+    document.getElementById('btn-about').addEventListener('click', function(){ showPage('about-page'); });
+    document.getElementById('btn-cv').addEventListener('click', function(){ showPage('cv-page'); });
+    document.getElementById('btn-hobbies').addEventListener('click', function(){ showPage('hobbies-page'); });
+    document.getElementById('btn-map').addEventListener('click', function(){ showMapView(); });
+
+    function listPdfsInFolder() {
+      var listEl = document.getElementById('pdf-list');
+      listEl.innerHTML = 'A procurar PDFs na pasta...';
+      var pdfs = [];
+
+      function normalizeName(n){
+        try { n = decodeURIComponent(n); } catch(e) {}
+        return (n || '').replace(/[_\-]+/g,' ').replace(/\s+/g,' ').trim().toLowerCase();
+      }
+      function existsPdf(name, href){
+        var nn = normalizeName(name || '');
+        try { href = new URL(href, window.location.href).href; } catch(e) {}
+        return pdfs.some(function(p){
+          if (normalizeName(p.name) === nn) return true;
+          try { if (new URL(p.href).href === href) return true; } catch(e) {}
+          if (p.href === href) return true;
+          return false;
+        });
+      }
+
+      var candidatePaths = [
+        'cv/pdf/CV Gonçalo Pereira.pdf',
+        'cv/pdf/CV Gonçalo Pereira EN.pdf',
+        'cv/pdf/CV_GoncaloPereira_PT.pdf',
+        'cv/pdf/CV_GoncaloPereira_EN.pdf',
+        'cv/pdf/Relatorio de Estagio.pdf'
+      ];
+
+      var checks = candidatePaths.map(function(p){
+        var resolved;
+        try { resolved = new URL(p, window.location.href).href; } catch(e) { resolved = p; }
+        return fetch(resolved, { method: 'HEAD' }).then(function(r){
+          if (r.ok) {
+            var name = p.split('/').pop();
+            if (!existsPdf(name, resolved)) pdfs.push({ name: name, href: resolved });
+          } else {
+            // opcional: debug em consola para identificar porque não aparece
+            console.info('PDF não encontrado (HEAD):', resolved, r.status);
+          }
+        }).catch(function(e){ console.warn('Erro ao verificar PDF:', resolved, e); });
+      });
+
+      Promise.all(checks).then(function(){
+        var path = window.location.pathname;
+        var dir = path.replace(/[^\/]+$/, '');
+        if (dir === '') dir = '/';
+
+        // Tenta obter PDFs a partir de várias rotas: raiz, pasta cv e cv/pdf,
+        // e também de páginas internas conhecidas (ex.: cv/CV_GoncaloPereira.html).
+        return (async function(){
+          var tries = [dir, dir + 'cv/', dir + 'cv/pdf/', 'cv/', 'cv/pdf/', 'cv/CV_GoncaloPereira.html'];
+          for (var i = 0; i < tries.length; i++) {
+            try {
+              var resp = await fetch(tries[i]);
+              if (!resp.ok) continue;
+              var html = await resp.text();
+              var parser = new DOMParser();
+              var doc = parser.parseFromString(html, 'text/html');
+              var anchors = doc.querySelectorAll('a');
+              anchors.forEach(function(a){
+                var href = a.getAttribute('href');
+                if (!href) return;
+                if (href.toLowerCase().indexOf('.pdf') !== -1 && href.indexOf('..') === -1) {
+                  var name = href.split('/').pop();
+                  if (name && name.toLowerCase().endsWith('.pdf')) {
+                    if (!existsPdf(name, href)) {
+                      try {
+                        // Resolve URLs relativas em relação à rota que foi lida
+                        var base = new URL(tries[i], window.location.href);
+                        var resolved = new URL(href, base).href;
+                      } catch (e) {
+                        var resolved = href;
+                      }
+                      if (!existsPdf(name, resolved)) pdfs.push({ name: name, href: resolved });
+                    }
+                  }
+                }
+              });
+            } catch (e) {
+              // ignora erros e continua com as outras tentativas
+            }
+          }
+          return pdfs;
+        })();
+      }).then(function(){
+        listEl.innerHTML = '';
+
+        if (pdfs.length === 0) {
+          listEl.innerHTML = '<em>Nenhum PDF encontrado na pasta.</em>';
+          return;
+        }
+
+        var grid = document.createElement('div');
+        grid.id = 'pdf-grid';
+
+        pdfs.forEach(function(p){
+          var tile = document.createElement('div');
+          tile.className = 'pdf-tile';
+          var displayName = p.name.replace(/\.pdf$/i, '');
+          try { displayName = decodeURIComponent(displayName); } catch(e) {}
+          displayName = displayName.replace(/[_\-]+/g, ' ').replace(/\s+/g, ' ').trim();
+
+          var thumb = document.createElement('canvas');
+          thumb.className = 'pdf-thumb';
+          thumb.title = displayName + ' — Pré-visualização';
+
+        
+          var title = document.createElement('a');
+          title.className = 'pdf-title';
+          title.href = p.href;
+          title.textContent = displayName;
+          title.addEventListener('click', function(e){ e.preventDefault(); openPdf(p.href); });
+
+          tile.addEventListener('click', function(e){
+            if (e.target && (e.target === title)) return;
+            openPdf(p.href);
+          });
+
+          tile.appendChild(thumb);
+          tile.appendChild(title);
+          grid.appendChild(tile);
+        });
+
+        listEl.appendChild(grid);
+
+        if (window['pdfjsLib']) {
+          try {
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+          } catch (e) { console.warn('PDF.js worker config failed', e); }
+
+          function renderFirstPageToCanvas(url, canvas) {
+            var loadingTask = pdfjsLib.getDocument(url);
+            loadingTask.promise.then(function(pdf) {
+              return pdf.getPage(1).then(function(page) {
+                var viewport1 = page.getViewport({ scale: 1 });
+                var desiredCssWidth = Math.max(180, Math.min(360, canvas.parentNode.clientWidth || 260));
+                var scale = desiredCssWidth / viewport1.width;
+                var vp = page.getViewport({ scale: scale });
+                var dpr = window.devicePixelRatio || 1;
+                canvas.width = Math.floor(vp.width * dpr);
+                canvas.height = Math.floor(vp.height * dpr);
+                canvas.style.width = Math.floor(vp.width) + 'px';
+                canvas.style.height = Math.floor(vp.height) + 'px';
+                var ctx = canvas.getContext('2d');
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                var renderContext = { canvasContext:ctx, viewport: vp };
+                return page.render(renderContext).promise;
+              });
+            }).catch(function(err){ console.warn('Erro a renderizar PDF para thumb', url, err); });
+          }
+
+          var canvases = grid.querySelectorAll('canvas.pdf-thumb');
+          canvases.forEach(function(c, i){
+            var p = pdfs[i];
+            setTimeout(function(){ renderFirstPageToCanvas(p.href, c); }, 80 * i);
+          });
+        }
+      });
+    }
+
+    function openPdf(href) {
+      var viewer = document.getElementById('pdf-viewer');
+      var a = document.createElement('a'); a.href = href; href = a.href;
+  viewer.style.display = 'block';
+      viewer.innerHTML = '';
+
+      var toolbar = document.createElement('div');
+  toolbar.className = 'pdf-viewer-toolbar';
+
+      var titleSpan = document.createElement('div');
+  titleSpan.className = 'pdf-viewer-title';
+      var displayName = href.split('/').pop().replace(/\.pdf$/i, '').replace(/[_\-]+/g,' ').trim();
+      try { displayName = decodeURIComponent(displayName); } catch(e) {}
+      titleSpan.textContent = displayName;
+
+      var controls = document.createElement('div');
+  controls.className = 'pdf-viewer-controls';
+
+
+      var btnOpen = document.createElement('a');
+      btnOpen.href = href; btnOpen.target = '_blank';
+  btnOpen.className = 'btn-primary pdf-action';
+      btnOpen.textContent = 'Abrir num novo separador';
+
+      var btnDownload = document.createElement('a');
+      btnDownload.href = href; btnDownload.download = '';
+  btnDownload.className = 'btn-primary pdf-action';
+      btnDownload.textContent = 'Download';
+
+      var btnClose = document.createElement('button');
+  btnClose.className = 'btn-primary pdf-close-btn';
+      btnClose.textContent = 'Fechar';
+      btnClose.addEventListener('click', function(){ viewer.style.display = 'none'; });
+
+      controls.appendChild(btnOpen);
+      controls.appendChild(btnDownload);
+      controls.appendChild(btnClose);
+
+      toolbar.appendChild(titleSpan);
+      toolbar.appendChild(controls);
+
+      viewer.appendChild(toolbar);
+
+  var container = document.createElement('div');
+  container.className = 'pdf-container';
+  viewer.appendChild(container);
+
+      if (window['pdfjsLib']) {
+        try { pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js'; } catch(e) {}
+  var loadingNote = document.createElement('div');
+  loadingNote.className = 'loading-note';
+  loadingNote.textContent = 'A calcular tamanho do documento...';
+  container.appendChild(loadingNote);
+        var loading = pdfjsLib.getDocument(href);
+        loading.promise.then(function(pdf){
+          return pdf.getPage(1).then(function(page){
+            loadingNote.parentNode && loadingNote.parentNode.removeChild(loadingNote);
+            var viewport1 = page.getViewport({ scale: 1 });
+            var containerWidth = Math.min(container.clientWidth || 900, window.innerWidth - 120);
+            var scale = containerWidth / viewport1.width;
+            var vp = page.getViewport({ scale: scale });
+            var totalHeight = vp.height * pdf.numPages;
+
+            var fullFrame = document.createElement('iframe');
+            fullFrame.className = 'pdf-iframe';
+            fullFrame.src = href;
+            container.appendChild(fullFrame);
+            viewer.scrollIntoView({ behavior: 'smooth' });
+          });
+        }).catch(function(err){
+          console.warn('Erro ao calcular tamanho do PDF, usando altura fallback:', err);
+          loadingNote.parentNode && loadingNote.parentNode.removeChild(loadingNote);
+          var fallback = document.createElement('iframe');
+          fallback.className = 'pdf-iframe';
+          fallback.src = href;
+          container.appendChild(fallback);
+          viewer.scrollIntoView({ behavior: 'smooth' });
+        });
+      } else {
+  var fallback = document.createElement('iframe');
+  fallback.className = 'pdf-iframe';
+  fallback.src = href;
+  container.appendChild(fallback);
+        viewer.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function showFeatureInfo(props, feature, layer) {
+      var container = document.getElementById('map-feature-info-content');
+      var wrapper = document.getElementById('map-feature-info');
+      if (!container || !wrapper) return;
+
+
+  var html = '<div class="popup-content">';
+
+      var keys = {};
+      for (var k in props) { if (props.hasOwnProperty(k)) keys[k.toLowerCase()] = k; }
+
+      if (feature && feature.properties) {
+        // detectar a origem do feature (preferir a marcação no layer, fallback nas propriedades)
+        var src = '';
+        try {
+          src = ( (layer && layer._sourceFile) || feature.properties._sourceFile || feature.properties.filename || '');
+        } catch (e) { src = (feature.properties._sourceFile || feature.properties.filename || ''); }
+        src = src.toString().toLowerCase();
+
+  // Priorizar checks por camada — assim shapes das camadas específicas não são sobrescritas pelo caso FID
+  // Para pontos idosos: mostrar apenas a propriedade 'tag' e rotulá-la como 'Ponto de Interesse'
+        if (src.indexOf('pontosidosos') !== -1) {
+          var tagKey = keys['tag'];
+          if (!tagKey) {
+            for (var kk in props) if (props.hasOwnProperty(kk) && kk.toLowerCase() === 'tag') { tagKey = kk; break; }
+          }
+          var vtag = (tagKey && props[tagKey]) ? props[tagKey] : '';
+          html += '<strong>Ponto de Interesse:</strong> ' + (vtag || '<em>—</em>') + '<br/>';
+  } else if (src.indexOf('pontosjovens') !== -1 || (src.indexOf('pontos') !== -1 && src.indexOf('jovens') !== -1)) {
+          // Pontos jovens: mostrar apenas a propriedade 'tag' e rotulá-la como 'Ponto de Interesse'
+          var tagKeyJ = keys['tag'];
+          if (!tagKeyJ) {
+            for (var kk2 in props) if (props.hasOwnProperty(kk2) && kk2.toLowerCase() === 'tag') { tagKeyJ = kk2; break; }
+          }
+          var vtagJ = (tagKeyJ && props[tagKeyJ]) ? props[tagKeyJ] : '';
+          html += '<strong>Ponto de Interesse:</strong> ' + (vtagJ || '<em>—</em>') + '<br/>';
+        } else if (src.indexOf('zona30') !== -1 || src.indexOf('zona 30') !== -1) {
+          // Zona 30 — mostrar apenas uma descrição simples
+          html += '<strong>Descrição:</strong> Zona 30<br/>';
+        } else if (src.indexOf('zonacoexistencia') !== -1 || src.indexOf('zona coexistencia') !== -1 || src.indexOf('coexistencia') !== -1) {
+          // Zona de Coexistencia — descrição simples
+          html += '<strong>Descrição:</strong> Zona de Coexistencia<br/>';
+        } else if (src.indexOf('ruapedonalizada') !== -1 || src.indexOf('rua pedonalizada') !== -1 || src.indexOf('pedonaliz') !== -1 || src.indexOf('pedonaliza') !== -1) {
+          // Rua Pedonalização — descrição simples
+          html += '<strong>Descrição:</strong> Rua para Pedonalização<br/>';
+        } else if (src.indexOf('escolasecundaria') !== -1) {
+          html += '<strong>Descrição:</strong> Escola Secundária de Gondomar<br/>';
+          html += '<img src="imagens/secundaria_gondomar.jpg" class="popup-image" />';
+        } else if (src.indexOf('universidade senior') !== -1 || src.indexOf('universidadesenior') !== -1) {
+          // Universidade Sénior — suporte com e sem espaço no nome de ficheiro
+          html += '<strong>Descrição:</strong> Universidade Sénior de Gondomar<br/>';
+          html += '<img src="imagens/unisenior.jpg" class="popup-image" />';
+        } else if (src.indexOf('escolaprimaria') !== -1) {
+          html += '<strong>Descrição:</strong> Escola Básica de 1.º CEB do Souto<br/>';
+          html += '<img src="imagens/cebsouto.jpg" class="popup-image" />';
+        } else if (src.indexOf('jovens') !== -1 && (src.indexOf('area') !== -1 || src.indexOf('areaserv') !== -1 || src.indexOf('areaservi') !== -1)) {
+          // Área Serviço Jovens — substituir conteúdo por descrição e tempo de caminhada (min)
+          var minutesLabel = '<em>—</em>';
+          try {
+            var tb = feature.properties && (feature.properties.ToBreak !== undefined ? Number(feature.properties.ToBreak) : (feature.properties.ToBreak || feature.properties.tobreak));
+            if (!isNaN(tb)) {
+              if (tb <= 5) minutesLabel = '5 minutos';
+              else if (tb <= 10) minutesLabel = '10 minutos';
+              else minutesLabel = '15 minutos';
+            }
+          } catch (e) { minutesLabel = '<em>—</em>'; }
+
+          html += '<strong>Descrição:</strong> Tempo de caminhada – Jovens (min)<br/>';
+          html += '<strong>Tempo:</strong> ' + minutesLabel + '<br/>';
+
+        } else if (src.indexOf('idosos') !== -1 && (src.indexOf('area') !== -1 || src.indexOf('areaserv') !== -1 || src.indexOf('areaservi') !== -1)) {
+          // Área Serviço Idosos — substituir conteúdo por descrição e tempo de caminhada (min)
+          var minutesLabel = '<em>—</em>';
+          try {
+            var tb = feature.properties && (feature.properties.ToBreak !== undefined ? Number(feature.properties.ToBreak) : (feature.properties.ToBreak || feature.properties.tobreak));
+            if (!isNaN(tb)) {
+              if (tb <= 5) minutesLabel = '5 minutos';
+              else if (tb <= 10) minutesLabel = '10 minutos';
+              else minutesLabel = '15 minutos';
+            }
+          } catch (e) { minutesLabel = '<em>—</em>'; }
+
+          html += '<strong>Descrição:</strong> Tempo de caminhada – Idosos (min)<br/>';
+          html += '<strong>Tempo:</strong> ' + minutesLabel + '<br/>';
+        } else if (feature.properties && (feature.properties.FID === 7 || feature.properties.FID === 8 || feature.properties.FID === 9 || feature.properties.FID === 10 || feature.properties.FID === 11)) {
+          // caso especial para Júlio Dinis (aplica-se quando a origem da feature não é a camada secundária/primária)
+          html += '<strong>Descrição:</strong> EB 2/3 Gondomar Julio Dinis<br/>';
+          html += '<img src="imagens/juliodinis.jpg" class="popup-image" />';
+        } else {
+          for (var key in props) {
+            if (!props.hasOwnProperty(key)) continue;
+            var value = props[key];
+            if (typeof value === 'object') value = JSON.stringify(value);
+            html += '<strong>' + key + ':</strong> ' + value + '<br/>';
+          }
+        }
+      } else if (keys['tag'] !== undefined && (keys['tag'].toLowerCase().indexOf('idoso') !== -1 || keys['tag'].toLowerCase().indexOf('jovem') !== -1 || feature.properties.tag !== undefined)) {
+        var tagKey = keys['tag'];
+        if (tagKey) {
+          var v = props[tagKey] || '';
+          html += '<strong>Ponto de Interesse:</strong> ' + (v || '<em>—</em>') + '<br/>';
+        }
+      } else if (keys['morada'] !== undefined || keys['descricao'] !== undefined) {
+        // STCP
+        var morKey = keys['morada'];
+        var descKey = keys['descricao'] || keys['decricao1'] || keys['decrica o'] || keys['decrica o1'];
+        if (morKey) {
+          var v = props[morKey] || '';
+          html += '<strong>Morada:</strong> ' + (v || '<em>—</em>') + '<br/>';
+        }
+        if (descKey) {
+          var v2 = props[descKey] || '';
+          html += '<strong>Descrição:</strong> ' + (v2 || '<em>—</em>') + '<br/>';
+        }
+      } else if (keys['designaça'] !== undefined || keys['designae_1'] !== undefined || keys['designaça'.toLowerCase()]) {
+        var designKey = keys['designaça'] || keys['designae_1'] || keys['designae_1'.toLowerCase()];
+        var localKey = keys['localizaç'] || keys['localizaç'.toLowerCase()] || keys['localizaç'];
+        if (!designKey) {
+          for (var kk in props) if (kk.toLowerCase().indexOf('design') === 0) { designKey = kk; break; }
+        }
+        if (!localKey) {
+          for (var kk in props) if (kk.toLowerCase().indexOf('local') === 0) { localKey = kk; break; }
+        }
+        if (designKey) {
+          var vd = props[designKey] || '';
+          html += '<strong>Descrição:</strong> ' + (vd || '<em>—</em>') + '<br/>';
+        }
+        if (localKey) {
+          var vl = props[localKey] || '';
+          html += '<strong>Morada:</strong> ' + (vl || '<em>—</em>') + '<br/>';
+        }
+      } else {
+        for (var key in props) {
+          if (!props.hasOwnProperty(key)) continue;
+          var value = props[key];
+          if (typeof value === 'object') value = JSON.stringify(value);
+          html += '<strong>' + key + ':</strong> ' + value + '<br/>';
+        }
+      }
+
+      html += '</div>';
+      container.innerHTML = html;
+      wrapper.style.display = 'block';
+
+      try {
+        clearSelection();
+        if (layer) {
+          if (typeof layer.setStyle === 'function') {
+            var prev = {};
+            try {
+              prev.color = layer.options && layer.options.color;
+              prev.weight = layer.options && layer.options.weight;
+              prev.fillColor = layer.options && layer.options.fillColor;
+              prev.fillOpacity = layer.options && layer.options.fillOpacity;
+              prev.opacity = layer.options && layer.options.opacity;
+            } catch (e) {}
+            layer._prevStyle = prev;
+            layer.setStyle({ weight: 4, color: '#ff7800' });
+          }
+          if (typeof layer.setRadius === 'function') {
+            try {
+              layer._prevRadius = layer.options && layer.options.radius;
+              layer.setRadius((layer._prevRadius || 6) + 3);
+            } catch (e) {}
+          }
+          selectedLayer = layer;
+        }
+      } catch (e) { console.warn(e); }
+    }
+
+    function clearFeatureInfo() {
+      var container = document.getElementById('map-feature-info-content');
+      var wrapper = document.getElementById('map-feature-info');
+      if (container) container.innerHTML = 'Clique num ponto ou polígono no mapa para ver detalhes.';
+      if (wrapper) wrapper.style.display = 'none';
+      clearSelection();
+    }
+    (function(){
+      setTimeout(function(){
+        var btn = document.getElementById('map-feature-info-close');
+        if (btn) btn.addEventListener('click', function(e){ e.stopPropagation(); clearFeatureInfo(); });
+      }, 200);
+    })();
+
+    function clearSelection(){
+      try {
+        if (selectedLayer) {
+          if (typeof selectedLayer.setStyle === 'function' && selectedLayer._prevStyle) {
+            selectedLayer.setStyle(selectedLayer._prevStyle);
+            delete selectedLayer._prevStyle;
+          }
+          if (typeof selectedLayer.setRadius === 'function' && selectedLayer._prevRadius !== undefined) {
+            try { selectedLayer.setRadius(selectedLayer._prevRadius); } catch(e){}
+            delete selectedLayer._prevRadius;
+          }
+        }
+      } catch (e) { console.warn(e); }
+      selectedLayer = null;
+    }
+
+    function openPanel(title, htmlContent){
+      var overlay = document.getElementById('panel-overlay');
+      var titleEl = document.getElementById('panel-title');
+      var contentEl = document.getElementById('panel-content');
+      if (!overlay || !titleEl || !contentEl) return;
+      titleEl.textContent = title;
+      contentEl.innerHTML = htmlContent;
+      overlay.style.display = 'flex';
+    }
+    function closePanel(){
+      var overlay = document.getElementById('panel-overlay');
+      if (overlay) overlay.style.display = 'none';
+    }
+    document.getElementById('panel-close').addEventListener('click', function(e){ e.stopPropagation(); closePanel(); });
+    document.getElementById('panel-overlay').addEventListener('click', function(e){ if (e.target === this) closePanel(); });
+
+    var contactModal = document.getElementById('contact-modal');
+    var contactLink = document.getElementById('contact-link');
+    var contactClose = document.getElementById('contact-close');
+    var contactForm = document.getElementById('contact-form');
+    var contactMessage = document.getElementById('contact-message');
+
+    contactLink.addEventListener('click', function(e){
+      e.preventDefault();
+      contactModal.classList.add('active');
+    });
+
+    contactClose.addEventListener('click', function(){
+      contactModal.classList.remove('active');
+    });
+
+    contactModal.addEventListener('click', function(e){
+      if (e.target === contactModal) {
+        contactModal.classList.remove('active');
+      }
+    });
+
+    contactForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      
+      var senderEmail = document.getElementById('sender-email').value.trim();
+      var message = document.getElementById('message').value.trim();
+      
+      if (!senderEmail || !message) {
+        showContactMessage('Por favor preencha todos os campos', 'error');
+        return;
+      }
+      
+      var mailtoLink = 'mailto:' + senderEmail + '?subject=Mensagem de ' + encodeURIComponent(senderEmail) + '&body=' + encodeURIComponent(message);
+      window.location.href = mailtoLink;
+      
+      showContactMessage('A abrir seu email...', 'success');
+      setTimeout(function(){
+        contactModal.classList.remove('active');
+      }, 1500);
+    });
+
+    function showContactMessage(text, type){
+      contactMessage.textContent = text;
+      contactMessage.className = 'contact-message ' + type;
+      contactMessage.style.display = 'block';
+    }
+
+    map.on('click', function(){ clearFeatureInfo(); });
+  </script>
+</body>
+</html>
