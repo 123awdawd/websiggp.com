@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8" />
+  <title>Mapa Leaflet — GeoJSON</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <style>
+    html,body,#map { height: 100%; margin: 0; padding: 0; }
+    #map { width: 100%; height: 600px; }
+
+    .group-header {
+      cursor: pointer;
+      font-weight: bold;
+      padding: 5px 0;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .group-header:hover {
+      background-color: #f0f0f0;
+    }
+
+    .group-header input[type="checkbox"] {
+      cursor: pointer;
+      margin: 0;
+    }
+
+    .group-toggle {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      text-align: center;
+      line-height: 16px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .group-items {
+      margin-left: 20px;
+      max-height: 500px;
+      overflow: hidden;
+      transition: max-height 0.3s ease, opacity 0.3s ease;
+      opacity: 1;
+    }
+
+    .group-items.collapsed {
+      max-height: 0;
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script>
+    var map = L.map('map', { center: [41.138251, -8.532450], zoom: 13 });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    function onEachFeature(feature, layer) {
+      if (feature && feature.properties) {
+        var props = feature.properties;
+        var content = '<div style="font-size:14px">';
+        for (var key in props) {
+          if (!props.hasOwnProperty(key)) continue;
+          var value = props[key];
+          if (typeof value === 'object') value = JSON.stringify(value);
+          content += '<strong>' + key + ':</strong> ' + value + '<br/>';
+        }
+        content += '</div>';
+        layer.bindPopup(content);
+      }
+    }
+
+    function pointToLayer(feature, latlng) {
+      return L.circleMarker(latlng, {
+        radius: 6,
+        fillColor: '#3388ff',
+        color: '#fff',
+        weight: 1,
+        opacity: 1,
+        fillOpacity: 0.9
+      });
+    }
+
+    var globalColorMap = {
+      'ruapedonalizada.geojson': '#8B0000',
+      'zona30.json': '#0066FF',
+      'zonacoexistencia.json': '#FFCC00',
+      'universidade senior.geojson': '#FF8C00',
+      'escolasecundaria.json': '#90EE90',
+      'escolaprimaria.json': '#4169E1',
+      'escolabasica.json': '#FFD700',
+      'ParagensStcp.geojson': '#32CD32',
+      'LinhasStcp.geojson': '#32CD32'
+    };
+
+    function pointToLayerWithColor(feature, latlng, customColor) {
+      return L.circleMarker(latlng, {
+        radius: 6,
+        fillColor: customColor || '#3388ff',
+        color: '#fff',
+        weight: 1,
+        opacity: 1,
+        fillOpacity: 0.9
+      });
+    }
+
+    var geojsonFiles = [
+      'ParagensStcp.geojson',
+      'ParagensUnir.geojson',
+      'LinhasStcp.geojson',
+      'LinhasUnir.geojson',
+      'areaserviçoidosos.json',
+      'areaserviçojovens.json',
+      'escolabasica.json',
+      'escolaprimaria.json',
+      'escolasecundaria.json',
+      'pontosidosos.json',
+      'pontosjovens.json',
+      'ruapedonalizada.geojson',
+      'universidade senior.geojson',
+      'zona30.json',
+      'zonacoexistencia.json'
+    ];
+
+    var displayNames = {
+      'ParagensStcp.geojson': 'Paragens STCP',
+      'ParagensUnir.geojson': 'Paragens Unir',
+      'LinhasStcp.geojson': 'Linhas STCP',
+      'LinhasUnir.geojson': 'Linhas Unir',
+      'areaserviçoidosos.json': 'Área Serviço Idosos',
+      'areaserviçojovens.json': 'Área Serviço Jovens',
+      'escolabasica.json': 'Escola Básica',
+      'escolaprimaria.json': 'Escola Primária',
+      'escolasecundaria.json': 'Escola Secundária',
+      'pontosidosos.json': 'Pontos Idosos',
+      'pontosjovens.json': 'Pontos Jovens',
+      'ruapedonalizada.geojson': 'Rua Pedonalização',
+      'universidade senior.geojson': 'Universidade Sénior',
+      'zona30.json': 'Zona 30',
+      'zonacoexistencia.json': 'Zona Coexistência'
+    };
+
+    function fileTypeFromName(name) {
+      var lower = name.toLowerCase();
+      if (lower.indexOf('linhas') !== -1) return 'line';
+      if (lower.indexOf('paragen') !== -1 || lower.indexOf('paragens') !== -1 || lower.indexOf('pontos') !== -1) return 'point';
+      if (lower.indexOf('rua') !== -1 || lower.indexOf('zona') !== -1 || lower.indexOf('area') !== -1 || lower.indexOf('escola') !== -1 || lower.indexOf('universidade') !== -1) return 'polygon';
+      return 'auto';
+    }
+
+    var overlays = {};
+    var addedLayers = [];
+
+    var defaultVisible = ['zona30.json', 'zonacoexistencia.json', 'ruapedonalizada.geojson'];
+
+    var groupedNames = [
+      'zona30.json', 'zonacoexistencia.json', 'ruapedonalizada.geojson',
+      'ParagensStcp.geojson', 'ParagensUnir.geojson',
+      'LinhasStcp.geojson', 'LinhasUnir.geojson',
+      'escolabasica.json', 'escolaprimaria.json', 'escolasecundaria.json',
+      'universidade senior.geojson',
+      'areaserviçoidosos.json', 'areaserviçojovens.json',
+      'pontosidosos.json', 'pontosjovens.json'
+    ];
+
+    var groupMembers = {};
+
+    Promise.all(geojsonFiles.map(function(fname){
+      return fetch('Geojson/' + fname)
+        .then(function(r){ if(!r.ok) throw new Error(fname+': '+r.statusText); return r.json(); })
+        .then(function(json){ return { name: fname, data: json }; });
+    }))
+    .then(function(results){
+      results.forEach(function(item){
+        var name = item.name;
+        var data = item.data;
+        var cleanName = name.replace(/\.[^/.]+$/, '').replace(/_/g, ' ');
+        var type = fileTypeFromName(name);
+        var display = displayNames[name] || cleanName;
+
+        var colorMap = globalColorMap;
+        var customColor = colorMap[name];
+        var layer;
+
+        function getStyleWithProps(feature) {
+          var color = customColor;
+          if (name.indexOf('area') !== -1 && feature.properties && feature.properties.ToBreak) {
+            if (feature.properties.ToBreak <= 5) color = '#FFD700';
+            else if (feature.properties.ToBreak <= 10) color = '#FF8C00';
+            else color = '#FF0000';
+          }
+          return { color: color, weight: 2, fillOpacity: 0.3 };
+        }
+
+        if (type === 'line') {
+          layer = L.geoJSON(data, {
+            style: function(){ return { color: customColor || '#3388ff', weight: 4, opacity: 0.8 }; },
+            onEachFeature: onEachFeature
+          });
+        } else if (type === 'point') {
+          layer = L.geoJSON(data, {
+            pointToLayer: function(feature, latlng){
+              return pointToLayerWithColor(feature, latlng, customColor);
+            },
+            onEachFeature: onEachFeature
+          });
+        } else if (type === 'polygon') {
+          layer = L.geoJSON(data, { style: getStyleWithProps, onEachFeature: onEachFeature });
+        } else {
+          layer = L.geoJSON(data, { onEachFeature: onEachFeature, pointToLayer: pointToLayer });
+        }
+
+        if (groupedNames.indexOf(name) !== -1) {
+          groupMembers[name] = { layer: layer, display: display };
+        } else {
+          overlays[display] = layer;
+          if (defaultVisible.indexOf(name) !== -1) {
+            layer.addTo(map);
+            addedLayers.push(layer);
+          }
+        }
+      });
+
+      var groups = {
+        'Proposta de Pedonalização': ['zona30.json', 'zonacoexistencia.json', 'ruapedonalizada.geojson'],
+        'Transporte': ['ParagensStcp.geojson', 'ParagensUnir.geojson', 'LinhasStcp.geojson', 'LinhasUnir.geojson'],
+        'Educação': ['escolabasica.json', 'escolaprimaria.json', 'escolasecundaria.json', 'universidade senior.geojson'],
+        'Áreas de Serviço': ['areaserviçoidosos.json', 'areaserviçojovens.json', 'pontosidosos.json', 'pontosjovens.json']
+      };
+
+      for (var groupName in groups) {
+        groups[groupName].forEach(function(fileName) {
+          if (groupMembers[fileName]) {
+            var member = groupMembers[fileName];
+            overlays[groupName + '||' + member.display] = member.layer;
+            if (defaultVisible.indexOf(fileName) !== -1) {
+              member.layer.addTo(map);
+              addedLayers.push(member.layer);
+            }
+          }
+        });
+      }
+
+      L.control.layers(null, overlays, { collapsed: false }).addTo(map);
+
+      function createExpandableGroups() {
+        var layersControl = document.querySelector('.leaflet-control-layers');
+        if (!layersControl) return;
+
+        var labels = layersControl.querySelectorAll('label');
+
+        for (var groupName in groups) {
+          var groupLabels = [];
+
+          labels.forEach(function(label) {
+            var span = label.querySelector('span');
+            if (span && span.textContent.includes(groupName + '||')) {
+              groupLabels.push(label);
+            }
+          });
+
+          if (groupLabels.length === 0) continue;
+
+          var firstGroupLabel = groupLabels[0];
+
+          var header = document.createElement('div');
+          header.className = 'group-header';
+
+          var toggleSpan = document.createElement('span');
+          toggleSpan.className = 'group-toggle';
+          toggleSpan.textContent = '▼';
+
+          var titleSpan = document.createElement('strong');
+          titleSpan.textContent = groupName;
+
+          header.appendChild(toggleSpan);
+          header.appendChild(titleSpan);
+
+          firstGroupLabel.parentNode.insertBefore(header, firstGroupLabel);
+
+          var itemsContainer = document.createElement('div');
+          itemsContainer.className = 'group-items';
+
+          firstGroupLabel.parentNode.insertBefore(itemsContainer, firstGroupLabel);
+
+          groupLabels.forEach(function(label) {
+            var span = label.querySelector('span');
+            if (span) span.textContent = span.textContent.replace(groupName + '||', '');
+            itemsContainer.appendChild(label);
+          });
+
+          header.addEventListener('click', function() {
+            itemsContainer.classList.toggle('collapsed');
+            toggleSpan.textContent = itemsContainer.classList.contains('collapsed') ? '▶' : '▼';
+          });
+        }
+      }
+
+      setTimeout(createExpandableGroups, 100);
+
+      try {
+        var group = L.featureGroup(addedLayers);
+        map.fitBounds(group.getBounds(), { maxZoom: 17 });
+      } catch (e) {}
+    })
+    .catch(function(err){
+      console.error(err);
+      alert('Erro a carregar ficheiros GeoJSON: ' + err.message);
+    });
+  </script>
+</body>
+</html>
