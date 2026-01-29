@@ -1,0 +1,139 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+    padding: 30px;
+}
+
+a {
+    color: #0077cc;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.resume-container {
+    display: flex;
+    max-width: 1100px;
+    margin: auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+.left-column {
+    width: 30%;
+    background-color: #2e3b4e;
+    color: #fff;
+    padding: 30px;
+}
+
+.left-column img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    object-fit: cover;
+}
+
+.left-column h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #0077cc;
+    padding-bottom: 10px;
+}
+
+.left-column h2 {
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #a6c8ff;
+}
+
+.left-column p,
+.left-column a {
+    font-size: 14px;
+    color: #dbe4f0;
+    margin-bottom: 10px;
+}
+
+.left-column ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.left-column li {
+    margin-bottom: 8px;
+}
+
+.right-column {
+    width: 70%;
+    padding: 30px;
+}
+
+.section-title {
+    font-size: 22px;
+    color: #0077cc;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #0077cc;
+    padding-bottom: 5px;
+}
+
+.right-column p {
+    margin-bottom: 15px;
+    font-size: 15px;
+}
+
+.right-column ul {
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.right-column li {
+    margin-bottom: 8px;
+}
+
+.right-column a {
+    color: #0077cc;
+    font-weight: 600;
+}
+
+span {
+    font-weight: bold;
+    color: #333;
+}
+
+@media (max-width: 768px) {
+    .resume-container {
+        flex-direction: column;
+    }
+
+    .left-column,
+    .right-column {
+        width: 100%;
+    }
+
+    .left-column {
+        text-align: center;
+    }
+
+    .left-column img {
+        width: 150px;
+        height: 150px;
+        margin: auto;
+    }
+}
+.linguas-list span {
+    color: #0077cc; 
+    font-weight: bold;
+}
